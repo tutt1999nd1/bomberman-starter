@@ -10,7 +10,7 @@ import uet.oop.bomberman.graphics.Screen;
  */
 public abstract class Character extends AnimatedEntitiy {
 	
-	protected Board _board;
+	public  static Board _board;
 	protected int _direction = -1;
 	protected boolean _alive = true;
 	protected boolean _moving = false;

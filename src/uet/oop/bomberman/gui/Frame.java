@@ -1,5 +1,6 @@
 package uet.oop.bomberman.gui;
 
+
 import uet.oop.bomberman.Game;
 
 import javax.swing.*;
@@ -28,16 +29,19 @@ public class Frame extends JFrame {
 		_game = _gamepane.getGame();
 		
 		add(_containerpane);
-		
+
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		pack();
 		setLocationRelativeTo(null);
-		setVisible(true);	
+		setVisible(true);
+
 		
 		_game.start();
 	}
-	
+	public void setLives(int lives) {
+		_infopanel.setLives(lives);
+	}
 	public void setTime(int time) {
 		_infopanel.setTime(time);
 	}

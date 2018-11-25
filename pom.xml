@@ -34,7 +34,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>uet.oop.bomberman.BombermanGame</mainClass>
+                            <mainClass>uet.oop.uet.oop.bomberman.BombermanGame</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

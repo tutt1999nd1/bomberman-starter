@@ -1,6 +1,8 @@
 package uet.oop.bomberman.gui;
 
+
 import uet.oop.bomberman.Game;
+import uet.oop.bomberman.sound.GameSound;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,16 +21,16 @@ public class GamePanel extends JPanel {
 		_game = new Game(frame);
 
 		add(_game);
-
+//		GameSound.getIstance().getAudio(GameSound.MENU).play();
+//		GameSound.getIstance().getAudio(GameSound.MENU).loop();
 		_game.setVisible(true);
 
 		setVisible(true);
 		setFocusable(true);
-		
+
 	}
 
 	public Game getGame() {
 		return _game;
 	}
-	
 }

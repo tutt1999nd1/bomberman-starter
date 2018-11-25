@@ -1,15 +1,27 @@
 package uet.oop.bomberman.entities.character;
 
+import org.omg.CORBA.TRANSACTION_MODE;
+
 import uet.oop.bomberman.Board;
 import uet.oop.bomberman.Game;
 import uet.oop.bomberman.entities.Entity;
+import uet.oop.bomberman.entities.LayeredEntity;
+import uet.oop.bomberman.entities.Message;
 import uet.oop.bomberman.entities.bomb.Bomb;
+import uet.oop.bomberman.entities.bomb.Flame;
+import uet.oop.bomberman.entities.character.enemy.Enemy;
+import uet.oop.bomberman.entities.tile.Wall;
+import uet.oop.bomberman.entities.tile.destroyable.Brick;
 import uet.oop.bomberman.graphics.Screen;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.input.Keyboard;
+import uet.oop.bomberman.level.Coordinates;
 
+import java.awt.*;
 import java.util.Iterator;
 import java.util.List;
+
+import static uet.oop.bomberman.level.Coordinates.tileToPixel;
 
 public class Bomber extends Character {
 
@@ -73,10 +85,24 @@ public class Bomber extends Character {
         // TODO: _timeBetweenPutBombs dùng để ngăn chặn Bomber đặt 2 Bomb cùng tại 1 vị trí trong 1 khoảng thời gian quá ngắn
         // TODO: nếu 3 điều kiện trên thỏa mãn thì thực hiện đặt bom bằng placeBomb()
         // TODO: sau khi đặt, nhớ giảm số lượng Bomb Rate và reset _timeBetweenPutBombs về 0
+
+        if (_input.space && Game.getBombRate() > 0 && _timeBetweenPutBombs < 0) {
+           int xt = Coordinates.pixelToTile(_x + _sprite.getSize() / 2);
+            int yt = Coordinates.pixelToTile((_y + _sprite.getSize() / 2) - _sprite.getSize()); //subtract half player height and minus 1 y position
+
+            placeBomb(xt, yt);
+            Game.addBombRate(-1);
+
+            _timeBetweenPutBombs = 30;
+        }
+
+
     }
 
     protected void placeBomb(int x, int y) {
         // TODO: thực hiện tạo đối tượng bom, đặt vào vị trí (x, y)
+        Bomb b = new Bomb(x, y, _board);
+        _board.addBomb(b);
     }
 
     private void clearBombs() {
@@ -97,13 +123,26 @@ public class Bomber extends Character {
     public void kill() {
         if (!_alive) return;
         _alive = false;
+
+        _board.addLives(-1);
+
+        Message msg = new Message("-1 LIVE", getXMessage(), getYMessage(), 2, Color.white, 14);
+        _board.addMessage(msg);
+
     }
 
     @Override
     protected void afterKill() {
-        if (_timeAfter > 0) --_timeAfter;
+
+        if(_timeAfter > 0) --_timeAfter;
         else {
-            _board.endGame();
+            if(_bombs.size() == 0) {
+
+                if(_board.getLives() == 0)
+                    _board.endGame();
+                else
+                    _board.restartLevel();
+            }
         }
     }
 
@@ -111,27 +150,136 @@ public class Bomber extends Character {
     protected void calculateMove() {
         // TODO: xử lý nhận tín hiệu điều khiển hướng đi từ _input và gọi move() để thực hiện di chuyển
         // TODO: nhớ cập nhật lại giá trị cờ _moving khi thay đổi trạng thái di chuyển
+        int xa = 0, ya = 0;
+        if(_input.up) ya--;
+        if(_input.down) ya++;
+        if(_input.left) xa--;
+        if(_input.right) xa++;
+
+        if(xa != 0 || ya != 0)  {
+            move(xa * Game.getBomberSpeed(), ya * Game.getBomberSpeed());
+            _moving = true;
+        } else {
+            _moving = false;
+        }
+
     }
 
     @Override
     public boolean canMove(double x, double y) {
         // TODO: kiểm tra có đối tượng tại vị trí chuẩn bị di chuyển đến và có thể di chuyển tới đó hay không
-        return false;
+        // lay to do chinh giua
+        int tileX = Coordinates.pixelToTile(x);
+        int tileY = Coordinates.pixelToTile(y);
+        Entity nextEntity = _board.getEntity(tileX, tileY, this);
+
+            return collide(nextEntity);
+    }
+    private boolean CanmoveLayeredEntity(double x, double y) {
+        int tileX = Coordinates.pixelToTile(x);
+        int tileY = Coordinates.pixelToTile(y);
+        Entity nextEntity = _board.getEntity(tileX, tileY, this);
+        if(nextEntity instanceof Wall)return false;
+        if (nextEntity instanceof LayeredEntity) {
+            Entity topEntity = ((LayeredEntity) nextEntity).getTopEntity();
+            if (topEntity instanceof Brick) return false;
+            return  true;
+        }
+        return true;
     }
 
+
+    public void moveCenterX() {
+        int pixelOfEntity = Coordinates.tileToPixel(1);
+        double centerX = _x + _sprite.getRealWidth() / 2;
+        int tileCenterX = Coordinates.pixelToTile(centerX);
+        _x = Coordinates.tileToPixel(tileCenterX) + pixelOfEntity / 2 - _sprite.getRealWidth() / 2;
+    }
+
+    public void moveCenterY() {
+        int pixelOfEntity = Coordinates.tileToPixel(1);
+        double centerY = _y - _sprite.getRealHeight() / 2;
+        int tileCenterY = Coordinates.pixelToTile(centerY);
+        _y = Coordinates.tileToPixel(tileCenterY) + pixelOfEntity / 2 + _sprite.getRealHeight() / 2;
+    }
+
+    private void MoveCenter() {
+        int pixelOfEntity = Coordinates.tileToPixel(1);
+        double centerX = _x + _sprite.getRealWidth() / 2;
+        double centerY = _y - _sprite.getRealHeight() / 2;
+
+        if( !CanmoveLayeredEntity(centerX, centerY - pixelOfEntity / 2))moveCenterY();
+        if( !CanmoveLayeredEntity(centerX, centerY + pixelOfEntity / 2))moveCenterY();
+        if( !CanmoveLayeredEntity(centerX - pixelOfEntity / 2, centerY))moveCenterX();
+        if ( !CanmoveLayeredEntity(centerX + pixelOfEntity / 2, centerY))moveCenterX();
+
+    }
     @Override
     public void move(double xa, double ya) {
         // TODO: sử dụng canMove() để kiểm tra xem có thể di chuyển tới điểm đã tính toán hay không và thực hiện thay đổi tọa độ _x, _y
         // TODO: nhớ cập nhật giá trị _direction sau khi di chuyển
+
+        double centerX = _x + _sprite.getRealWidth() / 2;
+        double centerY = _y - _sprite.getRealHeight() / 2;
+
+        if (xa > 0) _direction = 1;
+        if (xa < 0) _direction = 3;
+        if (ya > 0) _direction = 2;
+        if (ya < 0) _direction = 0;
+        if (canMove(centerX + xa, centerY + ya)) {
+            _x += xa;
+            _y += ya;
+        }
+        MoveCenter();
     }
 
     @Override
     public boolean collide(Entity e) {
         // TODO: xử lý va chạm với Flame
         // TODO: xử lý va chạm với Enemy
+        if (e instanceof Flame) {
+            this.kill();
+            return true;
+        }
 
+        if (e instanceof Enemy) {
+            this.kill();
+            return true;
+        }
+
+
+
+
+        if (e instanceof Wall) return false;
+        if (e instanceof Brick) return false;
+        if (e instanceof LayeredEntity) return e.collide(this);
+        //xu ly bomb di qua bom lan dau
+        if(e instanceof Bomb) {
+            double diffX = e.getX()*16 - Coordinates.tileToPixel(getX())/16;
+            double diffY = e.getY()*16 - Coordinates.tileToPixel(getY())/16;
+            System.out.println(diffX);
+
+
+            System.out.println(e.getX()*16+" "+Coordinates.tileToPixel(getX()/16));
+
+            if(diffX >- 10 && diffX <6&& diffY >=-22  && diffY <= -8 ){
+                return true;
+            }
+
+            return false;
+        }
         return true;
+
     }
+    public boolean handleCollidePortal() {
+        if (_board.detectNoEnemies()) {
+            _board.nextLevel();
+            return true;
+        }
+
+        return false;
+    }
+
 
     private void chooseSprite() {
         switch (_direction) {

@@ -20,19 +20,20 @@ public class Game extends Canvas {
 							HEIGHT = 13 * TILES_SIZE;
 
 	public static int SCALE = 3;
-	
+	public static final int LIVES = 3;
 	public static final String TITLE = "BombermanGame";
-	
+	private static final int BOMBRATEBOSS = 4;
 	private static final int BOMBRATE = 1;
 	private static final int BOMBRADIUS = 1;
 	private static final double BOMBERSPEED = 1.0;
-	
+
 	public static final int TIME = 200;
 	public static final int POINTS = 0;
 	
 	protected static int SCREENDELAY = 3;
 
 	protected static int bombRate = BOMBRATE;
+	protected static int bombRateBoss = BOMBRATEBOSS;
 	protected static int bombRadius = BOMBRADIUS;
 	protected static double bomberSpeed = BOMBERSPEED;
 	
@@ -144,6 +145,7 @@ public class Game extends Canvas {
 			if(System.currentTimeMillis() - timer > 1000) {
 				_frame.setTime(_board.subtractTime());
 				_frame.setPoints(_board.getPoints());
+				_frame.setLives(_board.getLives());
 				timer += 1000;
 				_frame.setTitle(TITLE + " | " + updates + " rate, " + frames + " fps");
 				updates = 0;
@@ -159,8 +161,10 @@ public class Game extends Canvas {
 		return bomberSpeed;
 	}
 	
-	public static int getBombRate() {
-		return bombRate;
+	public static int getBombRate() { return bombRate;
+	}
+	public static int getBombRateBoss() {
+		return bombRateBoss;
 	}
 	
 	public static int getBombRadius() {
@@ -177,6 +181,9 @@ public class Game extends Canvas {
 	
 	public static void addBombRate(int i) {
 		bombRate += i;
+	}
+	public static void addBombRateBoss(int i) {
+		bombRateBoss += i;
 	}
 
 	public void resetScreenDelay() {

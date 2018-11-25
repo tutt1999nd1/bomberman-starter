@@ -63,11 +63,39 @@ public class Sprite {
 	public static Sprite balloom_right3 = new Sprite(16, 10, 2, SpriteSheet.tiles, 16, 16);
 	
 	public static Sprite balloom_dead = new Sprite(16, 9, 3, SpriteSheet.tiles, 16, 16);
-	
+	//Ghost
+	public static Sprite ghost_left1 = new Sprite(16, 6, 5, SpriteSheet.tiles, 16, 16);
+	public static Sprite ghost_left2 = new Sprite(16, 12, 12, SpriteSheet.tiles, 16, 16);
+	public static Sprite ghost_left3 = new Sprite(16, 6, 7, SpriteSheet.tiles, 16, 16);
+
+	public static Sprite ghost_right1 = new Sprite(16, 7, 5, SpriteSheet.tiles, 16, 16);
+	public static Sprite ghost_right2 = new Sprite(16, 12, 12, SpriteSheet.tiles, 16, 16);
+	public static Sprite ghost_right3 = new Sprite(16, 7, 7, SpriteSheet.tiles, 16, 16);
+
+	public static Sprite ghost_dead = new Sprite(16, 6, 8, SpriteSheet.tiles, 16, 16);
+
+	//BossBomb
+	public static Sprite boss_left1 = new Sprite(16, 11, 10, SpriteSheet.tiles, 10, 16);
+	public static Sprite boss_left2 = new Sprite(16, 11, 11, SpriteSheet.tiles, 11, 16);
+	public static Sprite boss_left3= new Sprite(16, 11, 12, SpriteSheet.tiles, 12 ,16);
+
+	public static Sprite boss_right1 = new Sprite(16, 9, 10, SpriteSheet.tiles, 10, 16);
+	public static Sprite boss_right2 = new Sprite(16, 9, 11, SpriteSheet.tiles, 11, 16);
+	public static Sprite boss_right3 = new Sprite(16, 9, 12, SpriteSheet.tiles, 12, 16);
+
+	public static Sprite boss_up1= new Sprite(16, 8, 10, SpriteSheet.tiles, 12, 16);
+	public static Sprite boss_up2= new Sprite(16, 8, 11, SpriteSheet.tiles, 12, 16);
+	public static Sprite boss_up3= new Sprite(16, 8, 12, SpriteSheet.tiles, 12, 15);
+
+	public static Sprite boss_down1= new Sprite(16, 10, 10, SpriteSheet.tiles, 12, 15);
+	public static Sprite boss_down2= new Sprite(16, 10, 11, SpriteSheet.tiles, 12, 15);
+	public static Sprite boss_down3= new Sprite(16, 10, 12, SpriteSheet.tiles, 12, 16);
+	public static Sprite boss_dead = new Sprite(16, 4, 2, SpriteSheet.tiles, 16, 16);
+
 	//ONEAL
-	public static Sprite oneal_left1 = new Sprite(16, 11, 0, SpriteSheet.tiles, 16, 16);
-	public static Sprite oneal_left2 = new Sprite(16, 11, 1, SpriteSheet.tiles, 16, 16);
-	public static Sprite oneal_left3 = new Sprite(16, 11, 2, SpriteSheet.tiles, 16, 16);
+	public static Sprite oneal_left1 = new Sprite(16, 11, 0, SpriteSheet.tiles, 10, 15);
+	public static Sprite oneal_left2 = new Sprite(16, 11, 1, SpriteSheet.tiles, 11, 15);
+	public static Sprite oneal_left3 = new Sprite(16, 11, 2, SpriteSheet.tiles, 12, 15);
 	
 	public static Sprite oneal_right1 = new Sprite(16, 12, 0, SpriteSheet.tiles, 16, 16);
 	public static Sprite oneal_right2 = new Sprite(16, 12, 1, SpriteSheet.tiles, 16, 16);
@@ -234,6 +262,14 @@ public class Sprite {
 
 	public int getPixel(int i) {
 		return _pixels[i];
+	}
+
+	public int getRealWidth() {
+		return _realWidth;
+	}
+
+	public int getRealHeight() {
+		return _realHeight;
 	}
 
 }

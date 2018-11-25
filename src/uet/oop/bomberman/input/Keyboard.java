@@ -9,14 +9,21 @@ import java.awt.event.KeyListener;
 public class Keyboard implements KeyListener {
 	
 	private boolean[] keys = new boolean[120]; //120 is enough to this game
-	public boolean up, down, left, right, space;
+	public boolean up, down, left, right, space,W,A,S,D,B;
 	
 	public void update() {
-		up = keys[KeyEvent.VK_UP] || keys[KeyEvent.VK_W];
-		down = keys[KeyEvent.VK_DOWN] || keys[KeyEvent.VK_S];
-		left = keys[KeyEvent.VK_LEFT] || keys[KeyEvent.VK_A];
-		right = keys[KeyEvent.VK_RIGHT] || keys[KeyEvent.VK_D];
-		space = keys[KeyEvent.VK_SPACE] || keys[KeyEvent.VK_X];
+		up = keys[KeyEvent.VK_UP] ;
+		down = keys[KeyEvent.VK_DOWN] ;
+		left = keys[KeyEvent.VK_LEFT] ;
+		right = keys[KeyEvent.VK_RIGHT];
+		space = keys[KeyEvent.VK_SPACE];
+
+		W =  keys[KeyEvent.VK_W];
+		S =  keys[KeyEvent.VK_S];
+		A =  keys[KeyEvent.VK_A];
+		D = keys[KeyEvent.VK_D];
+		B = keys[KeyEvent.VK_B];
+
 	}
 
 	@Override
