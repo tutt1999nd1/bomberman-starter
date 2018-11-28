@@ -23,6 +23,9 @@ public class Game extends Canvas {
 	public static final int LIVES = 3;
 	public static final String TITLE = "BombermanGame";
 	private static final int BOMBRATEBOSS = 4;
+	private static final int BOMBRADIUSBOSS = 1;
+	private static final double BOMBERSPEEDBOSS = 1.0;
+
 	private static final int BOMBRATE = 1;
 	private static final int BOMBRADIUS = 1;
 	private static final double BOMBERSPEED = 1.0;
@@ -32,10 +35,14 @@ public class Game extends Canvas {
 	
 	protected static int SCREENDELAY = 3;
 
-	protected static int bombRate = BOMBRATE;
+
 	protected static int bombRateBoss = BOMBRATEBOSS;
+	protected static int bombradiusBoss = BOMBRADIUSBOSS;
+	protected static double bomberspeedBoss = BOMBERSPEEDBOSS;
+
 	protected static int bombRadius = BOMBRADIUS;
 	protected static double bomberSpeed = BOMBERSPEED;
+	protected static int bombRate = BOMBRATE;
 	
 	
 	protected int _screenDelay = SCREENDELAY;
@@ -160,6 +167,10 @@ public class Game extends Canvas {
 	public static double getBomberSpeed() {
 		return bomberSpeed;
 	}
+	public static double getBomberspeedBoss() {
+		return bomberspeedBoss;
+
+	}
 	
 	public static int getBombRate() { return bombRate;
 	}
@@ -170,15 +181,22 @@ public class Game extends Canvas {
 	public static int getBombRadius() {
 		return bombRadius;
 	}
-	
+	public static int getBombradiusBoss() {
+		return bombradiusBoss;
+	}
 	public static void addBomberSpeed(double i) {
 		bomberSpeed += i;
 	}
+
 	
 	public static void addBombRadius(int i) {
 		bombRadius += i;
 	}
 	
+	public static void addBombRadiusBoss(int i) {
+		bombradiusBoss += i;
+	}
+
 	public static void addBombRate(int i) {
 		bombRate += i;
 	}

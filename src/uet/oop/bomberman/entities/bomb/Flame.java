@@ -7,6 +7,7 @@ import uet.oop.bomberman.entities.character.Character;
 import uet.oop.bomberman.entities.character.enemy.Enemy;
 import uet.oop.bomberman.entities.tile.Wall;
 import uet.oop.bomberman.graphics.Screen;
+import uet.oop.bomberman.sound.GameSound;
 
 public class Flame extends Entity {
 
@@ -94,7 +95,11 @@ public class Flame extends Entity {
 		for (int i = 0; i < _flameSegments.length; i++) {
 			if (_flameSegments[i].getX() == x && _flameSegments[i].getY() == y)
 				return _flameSegments[i];
+
 		}
+		GameSound.getIstance().getAudio(GameSound.BONG_BANG).play();
+
+
 		return null;
 	}
 

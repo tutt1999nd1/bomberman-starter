@@ -96,26 +96,26 @@ public class FileLevelLoader extends LevelLoader {
 					_board.addCharacter(new Balloon(Coordinates.tileToPixel(xE), Coordinates.tileToPixel(yE) + Game.TILES_SIZE, _board));
 					_board.addEntity(xE + yE * _width, new Grass(xE, yE, Sprite.grass));
 				}
-//				if (_map[y][x] == '2') {
-//					int xE = x, yE = y;
-//					_board.addCharacter(new Oneal(Coordinates.tileToPixel(xE), Coordinates.tileToPixel(yE) + Game.TILES_SIZE, _board));
-//					_board.addEntity(xE + yE * _width, new Grass(xE, yE, Sprite.grass));
-//				}
+				if (_map[y][x] == '2') {
+					int xE = x, yE = y;
+					_board.addCharacter(new Oneal(Coordinates.tileToPixel(xE), Coordinates.tileToPixel(yE) + Game.TILES_SIZE, _board));
+					_board.addEntity(xE + yE * _width, new Grass(xE, yE, Sprite.grass));
+				}
 //				if (_map[y][x] == '3') {
 //					int xE = x, yE = y;
 //					_board.addCharacter(new Doll(Coordinates.tileToPixel(xE), Coordinates.tileToPixel(yE) + Game.TILES_SIZE, _board));
 //					_board.addEntity(xE + yE * _width, new Grass(xE, yE, Sprite.grass));
 //				}
-				if (_map[y][x] == '4') {
+//				if (_map[y][x] == '4') {
+//					int xE = x, yE = y;
+//					_board.addCharacter(new B2(Coordinates.tileToPixel(xE), Coordinates.tileToPixel(yE) + Game.TILES_SIZE, _board));
+//					_board.addEntity(xE + yE * _width, new Grass(xE, yE, Sprite.grass));
+////				}
+				if (_map[y][x] == '0') {
 					int xE = x, yE = y;
-					_board.addCharacter(new B2(Coordinates.tileToPixel(xE), Coordinates.tileToPixel(yE) + Game.TILES_SIZE, _board));
+					_board.addCharacter(new BossBomb(Coordinates.tileToPixel(xE), Coordinates.tileToPixel(yE) + Game.TILES_SIZE, _board));
 					_board.addEntity(xE + yE * _width, new Grass(xE, yE, Sprite.grass));
 				}
-//				if (_map[y][x] == '0') {
-//					int xE = x, yE = y;
-//					_board.addCharacter(new BossBomb(Coordinates.tileToPixel(xE), Coordinates.tileToPixel(yE) + Game.TILES_SIZE, _board));
-//					_board.addEntity(xE + yE * _width, new Grass(xE, yE, Sprite.grass));
-//				}
 //				if (_map[y][x] == '6') {
 //					int xE = x, yE = y;
 //					_board.addCharacter(new Doria(Coordinates.tileToPixel(xE), Coordinates.tileToPixel(yE) + Game.TILES_SIZE, _board));
@@ -137,16 +137,16 @@ public class FileLevelLoader extends LevelLoader {
 //					_board.addEntity(xE + yE * _width, new Grass(xE, yE, Sprite.grass));
 //				}
 
-//				// thêm Brick
-//				if (_map[y][x] == '*') {
-//					int xB = x, yB = y;
-//					_board.addEntity(xB + yB * _width,
-//							new LayeredEntity(xB, yB,
-//									new Grass(xB, yB, Sprite.grass),
-//									new Brick(xB, yB, Sprite.brick)
-//							)
-//					);
-//				}
+				// thêm Brick
+				if (_map[y][x] == '*') {
+					int xB = x, yB = y;
+					_board.addEntity(xB + yB * _width,
+							new LayeredEntity(xB, yB,
+									new Grass(xB, yB, Sprite.grass),
+									new Brick(xB, yB, Sprite.brick)
+							)
+					);
+				}
 
 				// thêm Item kèm Brick che phủ ở trên
 				if (_map[y][x] == 'x') {

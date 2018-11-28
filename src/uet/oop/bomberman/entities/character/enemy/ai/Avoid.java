@@ -16,7 +16,7 @@ public class Avoid extends AI {
 
         @Override
         public int calculateDirection() {
-            int duongthang = duongthangBomb(3);
+            int duongthang = duongthangBomb(4);
 
             if (duongthang == 0){
                 return random.nextInt(3) + 1;

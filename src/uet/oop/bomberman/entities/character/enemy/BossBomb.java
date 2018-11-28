@@ -37,7 +37,7 @@ public class BossBomb extends Enemy {
 
         _sprite = Sprite.boss_left1;
         _bombs = _board.get_bombsBoss();
-        _ai = new AILow(board.getBomber(), this);
+        _ai = new AiAvoid(board.getBomber(), this);
         _direction = _ai.calculateDirection();
     }
 
@@ -59,77 +59,77 @@ public class BossBomb extends Enemy {
         }
     }
 
-//    private void detectPlaceBomb() {
-//
-//
-//        if (Game.getBombRateBoss() > 0 && _timeBetweenPutBombs < 0) {
-//            int xt = Coordinates.pixelToTile(_x + _sprite.getSize() / 2);
-//            int yt = Coordinates.pixelToTile((_y + _sprite.getSize() / 2) - _sprite.getSize());
-//            placeBomb(xt, yt);
-//
-//            Game.addBombRateBoss(-1);
-//            _timeBetweenPutBombs = 350;
-//        }
-//    }
-//
-//    private void clearBombs() {
-//        Iterator<Bomb> bs = _bombs.iterator();
-//
-//        Bomb b;
-//        while (bs.hasNext()) {
-//            b = bs.next();
-//            if (b.isRemoved()) {
-//                bs.remove();
-//                Game.addBombRateBoss(1);
-//            }
-//        }
-//
-//    }
-//
-//    protected void placeBomb(int x, int y) {
-//        Bomb b = new Bomb(x, y, _board);
-//        _board.addBombBoss(b);
-//    }
-//
-//    @Override
-//    public void update() {
-//        clearBombs();
-//        animate();
-//
-//        if (!_alive) {
-//            afterKill();
-//            return;
-//        }
-//
-//        if (_alive)
-//            calculateMove();
-//        if (_timeBetweenPutBombs < -7500) _timeBetweenPutBombs = 0;
-//        else _timeBetweenPutBombs--;
-//        detectPlaceBomb();
-//    }
-//    @Override
-//    public boolean collide(Entity e) {
-//
-//        if (e instanceof Flame) {
-//            this.kill();
-//            return true;
-//        }
-//        if(e instanceof Bomb) {
-//            double diffX = e.getX()*16 - Coordinates.tileToPixel(getX())/16;
-//            double diffY = e.getY()*16 - Coordinates.tileToPixel(getY())/16;
-//            System.out.println(diffX);
-//
-//
-////            System.out.println(e.getXTile());
-//            if(diffX >- 10 && diffX <6&& diffY >=-22  && diffY <= -8 ){
-//                return true;
-//            }
-//
-//            return false;
-//        }
-//        return true;
-//
-//    }
+    private void detectPlaceBomb() {
+
+
+        if (Game.getBombRateBoss() > 0 && _timeBetweenPutBombs < 0) {
+            int xt = Coordinates.pixelToTile(_x + _sprite.getSize() / 2);
+            int yt = Coordinates.pixelToTile((_y + _sprite.getSize() / 2) - _sprite.getSize());
+            placeBomb(xt, yt);
+
+            Game.addBombRateBoss(-1);
+            _timeBetweenPutBombs = 350;
+        }
+    }
+
+    private void clearBombs() {
+        Iterator<Bomb> bs = _bombs.iterator();
+
+        Bomb b;
+        while (bs.hasNext()) {
+            b = bs.next();
+            if (b.isRemoved()) {
+                bs.remove();
+                Game.addBombRateBoss(1);
+            }
+        }
+
+    }
+
+    protected void placeBomb(int x, int y) {
+        Bomb b = new Bomb(x, y, _board);
+        _board.addBombBoss(b);
+    }
+
+    @Override
+    public void update() {
+        clearBombs();
+        animate();
+
+        if (!_alive) {
+            afterKill();
+            return;
+        }
+
+        if (_alive)
+            calculateMove();
+        if (_timeBetweenPutBombs < -7500) _timeBetweenPutBombs = 0;
+        else _timeBetweenPutBombs--;
+        detectPlaceBomb();
+    }
+    @Override
+    public boolean collide(Entity e) {
+
+        if (e instanceof Flame) {
+            this.kill();
+            return true;
+        }
+        if(e instanceof Bomb) {
+            double diffX = e.getX()*16 - Coordinates.tileToPixel(getX())/16;
+            double diffY = e.getY()*16 - Coordinates.tileToPixel(getY())/16;
+            System.out.println(diffX);
+
+
+//            System.out.println(e.getXTile());
+            if(diffX >- 10 && diffX <6&& diffY >=-22  && diffY <= -8 ){
+                return true;
+            }
+
+            return false;
+        }
+        return true;
+
+    }
 }
 
 

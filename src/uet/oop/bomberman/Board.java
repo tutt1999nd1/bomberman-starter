@@ -12,6 +12,7 @@ import uet.oop.bomberman.graphics.Screen;
 import uet.oop.bomberman.input.Keyboard;
 import uet.oop.bomberman.level.FileLevelLoader;
 import uet.oop.bomberman.level.LevelLoader;
+import uet.oop.bomberman.sound.GameSound;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -118,6 +119,8 @@ public class Board implements IRender {
 		_screenToShow = 1;
 		_game.resetScreenDelay();
 		_game.pause();
+		GameSound.getIstance().getAudio(GameSound.MENU).stop();
+		GameSound.getIstance().getAudio(GameSound.LOSE).play();
 	}
 	
 	public boolean detectNoEnemies() {
@@ -168,7 +171,8 @@ public class Board implements IRender {
 	
 	public List<Bomb> getBombs() {
 		return _bombs;
-	}public List<Bomb> get_bombsBoss() {
+	}
+	public List<Bomb> get_bombsBoss() {
 		return _bombsBoss;
 	}
 	public Bomb getBombAt(double x, double y) {

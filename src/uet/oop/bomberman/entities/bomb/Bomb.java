@@ -9,6 +9,7 @@ import uet.oop.bomberman.entities.character.Character;
 import uet.oop.bomberman.graphics.Screen;
 import uet.oop.bomberman.graphics.Sprite;
 import uet.oop.bomberman.level.Coordinates;
+import uet.oop.bomberman.sound.GameSound;
 
 import static uet.oop.bomberman.level.Coordinates.tileToPixel;
 
@@ -114,7 +115,9 @@ public class Bomb extends AnimatedEntitiy {
 	public boolean collide(Entity e) {
         // TODO: xử lý khi Bomber đi ra sau khi vừa đặt bom (_allowedToPassThru)
         // TODO: xử lý va chạm với Flame của Bomb khác
-		if (e instanceof Flame && !_exploded) explode();
+		if (e instanceof Flame && !_exploded){
+			explode();
+		}
 
 
 

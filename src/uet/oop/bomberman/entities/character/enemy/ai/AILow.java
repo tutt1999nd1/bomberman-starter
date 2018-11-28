@@ -15,8 +15,7 @@ public class AILow extends AI {
 		}
 		@Override
 		public int calculateDirection() {
-//			return random.nextInt(4);
-			return 0;
+			return random.nextInt(4);
 		}
 
 }
