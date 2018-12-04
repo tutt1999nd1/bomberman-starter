@@ -2,6 +2,7 @@ package uet.oop.bomberman;
 
 import uet.oop.bomberman.graphics.Screen;
 import uet.oop.bomberman.gui.Frame;
+import uet.oop.bomberman.input.HighScore;
 import uet.oop.bomberman.input.Keyboard;
 
 import java.awt.*;
@@ -18,7 +19,7 @@ public class Game extends Canvas {
 	public static final int TILES_SIZE = 16,
 							WIDTH = TILES_SIZE * (31 / 2),
 							HEIGHT = 13 * TILES_SIZE;
-
+	public static final int HIGHSCORE = ( new Integer(HighScore.Read()));
 	public static int SCALE = 3;
 	public static final int LIVES = 3;
 	public static final String TITLE = "BombermanGame";
@@ -199,6 +200,11 @@ public class Game extends Canvas {
 
 	public static void addBombRate(int i) {
 		bombRate += i;
+	}
+	public static void BomberDefault() {
+		bombRate = 1;
+		bombRadius=1;
+		bomberSpeed=1.0;
 	}
 	public static void addBombRateBoss(int i) {
 		bombRateBoss += i;

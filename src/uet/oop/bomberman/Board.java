@@ -9,6 +9,7 @@ import uet.oop.bomberman.entities.character.Character;
 import uet.oop.bomberman.exceptions.LoadLevelException;
 import uet.oop.bomberman.graphics.IRender;
 import uet.oop.bomberman.graphics.Screen;
+import uet.oop.bomberman.input.HighScore;
 import uet.oop.bomberman.input.Keyboard;
 import uet.oop.bomberman.level.FileLevelLoader;
 import uet.oop.bomberman.level.LevelLoader;
@@ -33,7 +34,7 @@ public class Board implements IRender {
 	protected List<Bomb> _bombs = new ArrayList<>();
 	protected List<Bomb> _bombsBoss = new ArrayList<>();
 	private List<Message> _messages = new ArrayList<>();
-	
+	protected int _highScore= Game.HIGHSCORE;
 	private int _screenToShow = -1; //1:endgame, 2:changelevel, 3:paused
 	
 	private int _time = Game.TIME;
@@ -43,14 +44,14 @@ public class Board implements IRender {
 		_game = game;
 		_input = input;
 		_screen = screen;
-		
+
 		loadLevel(1); //start in level 1
 	}
 	
 	@Override
 	public void update() {
 		if( _game.isPaused() ) return;
-		
+
 		updateEntities();
 		updateCharacters();
 		updateBombs();
@@ -88,6 +89,7 @@ public class Board implements IRender {
 	
 	public void nextLevel() {
 		loadLevel(_levelLoader.getLevel() + 1);
+		GameSound.getIstance().getAudio(GameSound.WIN).play();
 	}
 	
 	public void loadLevel(int level) {
@@ -116,6 +118,13 @@ public class Board implements IRender {
 	}
 	
 	public void endGame() {
+		Integer highScore = new Integer(  HighScore.Read());
+		if ( this.getPoints()> highScore ){
+			HighScore.write(this.getPoints());
+		}
+
+
+
 		_screenToShow = 1;
 		_game.resetScreenDelay();
 		_game.pause();
@@ -433,5 +442,8 @@ public class Board implements IRender {
 	public int getLives() {
 		return _lives;
 	}
-	
+	public int getHighScores(){
+		return _highScore;
+	}
+
 }

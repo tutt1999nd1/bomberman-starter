@@ -13,6 +13,7 @@ public class InfoPanel extends JPanel {
 	private JLabel timeLabel;
 	private JLabel pointsLabel;
 	private JLabel livesLabel;
+	private JLabel highScore;
 
 	public InfoPanel(Game game) {
 		setLayout(new GridLayout());
@@ -30,9 +31,15 @@ public class InfoPanel extends JPanel {
 		livesLabel = new JLabel("Lives: " + game.getBoard().getLives());
 		livesLabel.setForeground(Color.white);
 		livesLabel.setHorizontalAlignment(JLabel.CENTER);
+
+		highScore = new JLabel("High Scores : " + game.getBoard().getHighScores());
+		highScore.setForeground(Color.GREEN);
+		highScore.setHorizontalAlignment(JLabel.CENTER);
+
 		add(timeLabel);
 		add(pointsLabel);
 		add(livesLabel);
+		add(highScore);
 		
 		setBackground(Color.black);
 		setPreferredSize(new Dimension(0, 40));

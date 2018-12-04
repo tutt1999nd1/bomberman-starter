@@ -5,10 +5,7 @@ import uet.oop.bomberman.Game;
 import uet.oop.bomberman.entities.Entity;
 import uet.oop.bomberman.entities.bomb.Flame;
 import uet.oop.bomberman.entities.character.Bomber;
-import uet.oop.bomberman.entities.character.enemy.ai.AILow;
-import uet.oop.bomberman.entities.character.enemy.ai.AiAvoid;
-import uet.oop.bomberman.entities.character.enemy.ai.AiGhost;
-import uet.oop.bomberman.entities.character.enemy.ai.Avoid;
+import uet.oop.bomberman.entities.character.enemy.ai.*;
 import uet.oop.bomberman.entities.tile.Wall;
 import uet.oop.bomberman.entities.tile.destroyable.Brick;
 import uet.oop.bomberman.graphics.Sprite;
@@ -20,7 +17,7 @@ public class Ghost extends Enemy{
 
         _sprite = Sprite.ghost_left1;
 
-        _ai = new AILow(board.getBomber(),this);
+        _ai = new AiGhost(board.getBomber(),this);
         _direction = _ai.calculateDirection();
     }
 

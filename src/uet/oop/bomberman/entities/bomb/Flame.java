@@ -6,6 +6,7 @@ import uet.oop.bomberman.entities.character.Bomber;
 import uet.oop.bomberman.entities.character.Character;
 import uet.oop.bomberman.entities.character.enemy.Enemy;
 import uet.oop.bomberman.entities.tile.Wall;
+import uet.oop.bomberman.entities.tile.destroyable.Brick;
 import uet.oop.bomberman.graphics.Screen;
 import uet.oop.bomberman.sound.GameSound;
 
@@ -72,22 +73,25 @@ public class Flame extends Entity {
 	 * @return
 	 */
 	private int calculatePermitedDistance() {
-		int xa = 0;
-		int ya = 0;
-		if (_direction == 0) ya = -1;
-		if (_direction == 1) xa = 1;
-		if (_direction == 2) ya = 1;
-		if (_direction == 3) xa = -1;
+		int radius = 0;
+		int x = (int)_x;
+		int y = (int)_y;
+		while(radius < _radius) {
+			if(_direction == 0) y--;
+			if(_direction == 1) x++;
+			if(_direction == 2) y++;
+			if(_direction == 3) x--;
 
-		for (int i = 0; i < _radius; i++) {
-			int xf = (int) (_x + xa * (i + 1));
-			int yf = (int) (_y + ya * (i + 1));
-			if (xf == _x && yf == _y) continue;
-			Entity entity = _board.getEntity(xf, yf, null);
-			entity.collide(this);
-			if (entity instanceof Wall) return i;
+			Entity a = _board.getEntity(x, y, null);
+
+			if(a instanceof Character) ++radius;
+
+			if(a.collide(this) == false)
+				break;
+
+			++radius;
 		}
-		return _radius;
+		return radius;
 	}
 
 
@@ -97,7 +101,7 @@ public class Flame extends Entity {
 				return _flameSegments[i];
 
 		}
-		GameSound.getIstance().getAudio(GameSound.BONG_BANG).play();
+
 
 
 		return null;

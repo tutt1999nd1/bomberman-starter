@@ -131,6 +131,7 @@ public class Bomber extends Character {
         Message msg = new Message("-1 LIVE", getXMessage(), getYMessage(), 2, Color.white, 14);
         _board.addMessage(msg);
         GameSound.getIstance().getAudio(GameSound.BOMBER_DIE).play();
+        Game.BomberDefault();
     }
 
     @Override
@@ -177,6 +178,7 @@ public class Bomber extends Character {
 
             return collide(nextEntity);
     }
+
     private boolean CanmoveLayeredEntity(double x, double y) {
         int tileX = Coordinates.pixelToTile(x);
         int tileY = Coordinates.pixelToTile(y);

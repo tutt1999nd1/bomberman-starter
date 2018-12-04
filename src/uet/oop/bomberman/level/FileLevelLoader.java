@@ -101,6 +101,11 @@ public class FileLevelLoader extends LevelLoader {
 					_board.addCharacter(new Oneal(Coordinates.tileToPixel(xE), Coordinates.tileToPixel(yE) + Game.TILES_SIZE, _board));
 					_board.addEntity(xE + yE * _width, new Grass(xE, yE, Sprite.grass));
 				}
+				if (_map[y][x] == '3') {
+					int xE = x, yE = y;
+					_board.addCharacter(new Ghost(Coordinates.tileToPixel(xE), Coordinates.tileToPixel(yE) + Game.TILES_SIZE, _board));
+					_board.addEntity(xE + yE * _width, new Grass(xE, yE, Sprite.grass));
+				}
 //				if (_map[y][x] == '3') {
 //					int xE = x, yE = y;
 //					_board.addCharacter(new Doll(Coordinates.tileToPixel(xE), Coordinates.tileToPixel(yE) + Game.TILES_SIZE, _board));
@@ -111,7 +116,7 @@ public class FileLevelLoader extends LevelLoader {
 //					_board.addCharacter(new B2(Coordinates.tileToPixel(xE), Coordinates.tileToPixel(yE) + Game.TILES_SIZE, _board));
 //					_board.addEntity(xE + yE * _width, new Grass(xE, yE, Sprite.grass));
 ////				}
-				if (_map[y][x] == '0') {
+				if (_map[y][x] == '4') {
 					int xE = x, yE = y;
 					_board.addCharacter(new BossBomb(Coordinates.tileToPixel(xE), Coordinates.tileToPixel(yE) + Game.TILES_SIZE, _board));
 					_board.addEntity(xE + yE * _width, new Grass(xE, yE, Sprite.grass));
@@ -169,7 +174,7 @@ public class FileLevelLoader extends LevelLoader {
 							)
 					);
 				}
-				if (_map[y][x] == 'f') {
+				if (_map[y][x] == 's') {
 					int xI = x, yI = y;
 					_board.addEntity(xI + yI * _width,
 							new LayeredEntity(xI, yI,
@@ -179,7 +184,7 @@ public class FileLevelLoader extends LevelLoader {
 							)
 					);
 				}
-				if (_map[y][x] == 's') {
+				if (_map[y][x] == 'f') {
 					int xI = x, yI = y;
 					_board.addEntity(xI + yI * _width,
 							new LayeredEntity(xI, yI,

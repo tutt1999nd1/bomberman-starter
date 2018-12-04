@@ -15,7 +15,6 @@ public class Portal extends Tile {
 	public boolean collide(Entity e) {
 		// TODO: xử lý khi Bomber đi vào
 		if (e instanceof Bomber) {
-			GameSound.getIstance().getAudio(GameSound.WIN).play();
 			return ((Bomber) e).handleCollidePortal();
 
 

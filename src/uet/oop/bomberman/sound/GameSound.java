@@ -7,8 +7,8 @@ import java.util.HashMap;
 public class GameSound {
     public static GameSound instance;
 
-    public static final String MENU = "/sound/01_Title Screen.wav";
-    public static final String PLAYGAME = "/sound/playgame.mid";
+    public static final String PLAYGAME = "/sound/01_Title Screen.wav";
+    public static final String MENU = "/sound/playgame.mid";
     public static final String BOMB = "/sound/newbomb.wav";
     public static final String BOMBER_DIE = "/sound/bomber_die.wav";
     public static final String MONSTER_DIE = "/sound/monster_die.wav";

@@ -96,7 +96,7 @@ public class Bomb extends AnimatedEntitiy {
 		_flames = new Flame[]{flame0, flame1, flame2, flame3};
 
 		_timeToExplode=0;
-
+		GameSound.getIstance().getAudio(GameSound.BONG_BANG).play();
 	}
 
 	public FlameSegment flameAt(int x, int y) {
